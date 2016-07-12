@@ -1,0 +1,108 @@
+#Create Train Table
+	
+CREATE TABLE train (
+    id BIGINT NOT NULL AUTO_INCREMENT,
+    Semana BIGINT,
+    Agencia_ID BIGINT,
+    Canal_ID BIGINT,
+    Ruta_SAK BIGINT,
+    Cliente_ID BIGINT,
+    Producto_ID BIGINT,
+    Venta_uni_hoy BIGINT,
+    Venta_hoy BIGINT,
+    Dev_uni_proxima BIGINT,
+    Dev_proxima BIGINT,
+    Demanda_uni_equil BIGINT,
+    PRIMARY KEY (id)
+);
+
+
+
+#Create Producto Table
+
+CREATE TABLE producto_tabla (
+    id BIGINT NOT NULL AUTO_INCREMENT,
+    Producto_ID BIGINT,
+    NombreProducto VARCHAR(255),
+    PRIMARY KEY (id)
+);
+
+
+
+#Load train table to sql
+LOAD DATA INFILE '/var/lib/mysql-files/producto_tabla.csv' 
+INTO TABLE producto_tabla 
+FIELDS TERMINATED BY ',' 
+ENCLOSED BY '"'
+LINES TERMINATED BY '\n'
+IGNORE 1 ROWS
+(Producto_ID, NombreProducto );
+
+
+
+
+
+#Out sample data to code with.
+SELECT *
+From train
+WHERE Semana = 3
+INTO OUTFILE '/var/lib/mysql-files/codeTestData.csv'
+FIELDS TERMINATED BY ','
+ENCLOSED BY '"'
+LINES TERMINATED BY '\n';
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#Load train table to sql
+LOAD DATA INFILE '/var/lib/mysql-files/train.csv' 
+INTO TABLE train 
+FIELDS TERMINATED BY ',' 
+ENCLOSED BY '"'
+LINES TERMINATED BY '\n'
+IGNORE 1 ROWS
+(Semana,
+Agencia_ID,
+Canal_ID,
+Ruta_SAK,
+Cliente_ID,
+Producto_ID,
+Venta_uni_hoy,
+Venta_hoy,
+Dev_uni_proxima,
+Dev_proxima,
+Demanda_uni_equil);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
